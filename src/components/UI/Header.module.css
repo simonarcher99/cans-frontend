@@ -1,0 +1,12 @@
+.header {
+  height: 3rem;
+  display: flex;
+  text-align: center;
+  justify-content: right;
+}
+
+.header-buttons {
+  height: 100%;
+  display: flex;
+  text-align: center;
+}
