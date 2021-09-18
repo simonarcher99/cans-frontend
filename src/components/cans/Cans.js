@@ -2,6 +2,7 @@ import React from "react";
 
 import Card from "../UI/Card";
 import classes from "./Cans.module.css";
+import Can from "./Can";
 
 const Cans = () => {
   const DUMMY_CANS = [
@@ -14,11 +15,9 @@ const Cans = () => {
 
   return (
     <Card>
-      <div>This is the list of cans</div>
+      <h1>This is the list of cans</h1>
       {DUMMY_CANS.map((can) => (
-        <div key={can.id}>
-          Item: {can.item} Quantity: {can.quantity}
-        </div>
+        <Can item={can.item} quantity={can.quantity} />
       ))}
     </Card>
   );
