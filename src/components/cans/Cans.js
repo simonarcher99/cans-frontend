@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "../UI/Card";
 import classes from "./Cans.module.css";
 import Can from "./Can";
 
 const Cans = () => {
+  const [backendData, setBackendData] = useState("");
   const DUMMY_CANS = [
     { item: "Baked Beans", id: 1, quantity: 3 },
     { item: "Scoth Broth", id: 2, quantity: 5 },
@@ -13,9 +14,28 @@ const Cans = () => {
     { item: "Black Beans", id: 5, quantity: 2 },
   ];
 
+  const url = "http://localhost:8000/api/";
+
+  useEffect(() => {
+    console.log(url);
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBackendData(data);
+        console.log(data);
+        return data;
+      });
+  }, []);
+
   return (
     <Card>
-      <h1>This is the list of cans</h1>
+      <h1>This is the list of cans {backendData.message}</h1>
       {DUMMY_CANS.map((can) => (
         <Can item={can.item} quantity={can.quantity} />
       ))}
