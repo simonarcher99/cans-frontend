@@ -5,23 +5,13 @@ import classes from "./Cans.module.css";
 import Can from "./Can";
 import NewCanForm from "./NewCanForm";
 
-import { BACKEND_URL_2 } from "../../utilities/variables";
+import { BACKEND_URL } from "../../utilities/constants.js";
 
 const Cans = () => {
-  const [backendData, setBackendData] = useState("");
-  const DUMMY_CANS = [
-    { item: "Baked Beans", id: 1, quantity: 3 },
-    { item: "Scoth Broth", id: 2, quantity: 5 },
-    { item: "Chopped Tomatoes", id: 3, quantity: 2 },
-    { item: "Chicked Peas", id: 4, quantity: 2 },
-    { item: "Black Beans", id: 5, quantity: 2 },
-  ];
-
-  const url = "http://localhost:8000/api/";
+  const [cansFromBackend, setCansFromBackend] = useState([]);
 
   useEffect(() => {
-    console.log(url);
-    fetch(url, {
+    fetch(BACKEND_URL + "api/cans", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +20,7 @@ const Cans = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBackendData(data);
-        console.log(data);
+        setCansFromBackend((state) => [...state, ...data.data]);
         return data;
       });
   }, []);
@@ -40,8 +29,8 @@ const Cans = () => {
     <Card>
       <h1>This is the list of cans</h1>
       <NewCanForm />
-      {DUMMY_CANS.map((can) => (
-        <Can item={can.item} quantity={can.quantity} />
+      {cansFromBackend.map((can) => (
+        <Can item={can.item} quantity={can.quantity} key={can.id} />
       ))}
     </Card>
   );
