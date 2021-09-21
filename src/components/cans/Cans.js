@@ -8,9 +8,9 @@ import NewCanForm from "./NewCanForm";
 import { BACKEND_URL } from "../../utilities/constants.js";
 
 const Cans = () => {
-  const [cansFromBackend, setCansFromBackend] = useState([]);
+  const [cansData, setCansData] = useState([]);
 
-  useEffect(() => {
+  const getBackendData = (BACKEND_URL) => {
     fetch(BACKEND_URL + "api/cans", {
       method: "GET",
       headers: {
@@ -20,16 +20,21 @@ const Cans = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setCansFromBackend((state) => [...state, ...data.data]);
+        setCansData((state) => [...data.data]);
+
         return data;
       });
+  };
+
+  useEffect(() => {
+    getBackendData(BACKEND_URL);
   }, []);
 
   return (
     <Card>
       <h1>This is the list of cans</h1>
-      <NewCanForm />
-      {cansFromBackend.map((can) => (
+      <NewCanForm setCansData={setCansData} />
+      {cansData.map((can) => (
         <Can item={can.item} quantity={can.quantity} key={can.id} />
       ))}
     </Card>

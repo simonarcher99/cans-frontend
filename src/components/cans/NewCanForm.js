@@ -46,7 +46,6 @@ const NewCanForm = (props) => {
 
     const formData = { item: item, quantity: quantity };
 
-    console.log(item, quantity);
     fetch(BACKEND_URL + "api/cans", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -54,7 +53,10 @@ const NewCanForm = (props) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    });
+    })
+      .then((reponse) => reponse.json())
+      .then((data) => data.data)
+      .then((data) => props.setCansData((state) => [...state, data]));
 
     itemReset();
     quantityReset();
