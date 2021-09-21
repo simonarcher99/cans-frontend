@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
+import { BACKEND_URL } from "../../utilities/constants";
 
 import "./NewCanForm.css";
 
@@ -43,7 +44,17 @@ const NewCanForm = (props) => {
       return;
     }
 
+    const formData = { item: item, quantity: quantity };
+
     console.log(item, quantity);
+    fetch(BACKEND_URL + "api/cans", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
 
     itemReset();
     quantityReset();
@@ -70,7 +81,7 @@ const NewCanForm = (props) => {
           onChange={quantityChangeHandler}
         />
         {quantityHasError && (
-          <p className="error-text">Please input a quantity >0</p>
+          <p className="error-text">Please input a quantity greater than 0</p>
         )}
       </div>
       <div className="form-actions">
