@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import classes from "./Cans.module.css";
 import Can from "./Can";
+import NewCanForm from "./NewCanForm";
+
+import { BACKEND_URL_2 } from "../../utilities/variables";
 
 const Cans = () => {
   const [backendData, setBackendData] = useState("");
@@ -35,7 +38,8 @@ const Cans = () => {
 
   return (
     <Card>
-      <h1>This is the list of cans {backendData.message}</h1>
+      <h1>This is the list of cans</h1>
+      <NewCanForm />
       {DUMMY_CANS.map((can) => (
         <Can item={can.item} quantity={can.quantity} />
       ))}
