@@ -35,7 +35,13 @@ const Cans = () => {
       <h1>This is the list of cans</h1>
       <NewCanForm setCansData={setCansData} />
       {cansData.map((can) => (
-        <Can item={can.item} quantity={can.quantity} key={can.id} />
+        <Can
+          item={can.item}
+          quantity={can.quantity}
+          key={can.id}
+          id={can.id}
+          setCansData={setCansData}
+        />
       ))}
     </Card>
   );
