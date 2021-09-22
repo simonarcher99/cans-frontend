@@ -12,13 +12,17 @@ const Can = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes["can-item"]}>
       <h2>{props.item}</h2>
-      <p>{props.quantity}</p>
-      <div>
-        <Button>+</Button>
-        <Button>-</Button>
-        <Button onClick={onDeleteHandler}>Delete</Button>
+      <div className={classes["can-buttons"]}>
+        <div className={classes["edit-buttons"]}>
+          <Button>-</Button>
+          <p>{props.quantity}</p>
+          <Button>+</Button>
+        </div>
+        <Button onClick={onDeleteHandler} className={classes.delete}>
+          Delete
+        </Button>
       </div>
     </div>
   );

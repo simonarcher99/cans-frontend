@@ -32,7 +32,7 @@ const Cans = () => {
 
   return (
     <Card>
-      <h1>This is the list of cans</h1>
+      <h1>Cupboard Inventory</h1>
       <NewCanForm setCansData={setCansData} />
       {cansData.map((can) => (
         <Can

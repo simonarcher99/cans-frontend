@@ -1,0 +1,21 @@
+.can-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.can-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.delete {
+  background-color: rgb(150, 86, 86);
+  color: white;
+}
