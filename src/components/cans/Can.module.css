@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: top;
+  padding: 1rem 0;
+}
+
+.can-item h2 {
+  padding: 0;
+  margin: 0;
 }
 
 .can-buttons {
@@ -18,4 +25,10 @@
 .delete {
   background-color: rgb(150, 86, 86);
   color: white;
+}
+
+.hr {
+  width: 100%;
+  height: 1px;
+  background-color: rgb(116, 102, 102, 0.25);
 }

@@ -12,7 +12,7 @@ const Can = (props) => {
   };
 
   const onDecrease = () => {
-    const data = { id: props.id, quantity: String(Number(props.quantity - 1)) };
+    const data = { quantity: String(Number(props.quantity - 1)) };
     fetch(BACKEND_URL + `api/cans/${props.id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -38,7 +38,7 @@ const Can = (props) => {
   };
 
   const onIncrease = () => {
-    const data = { id: props.id, quanity: String(Number(props.quantity) + 1) };
+    const data = { quantity: String(Number(props.quantity) + 1) };
     fetch(BACKEND_URL + `api/cans/${props.id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -46,37 +46,42 @@ const Can = (props) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then(
-      props.setCansData((data) =>
-        data.map((item) => {
-          if (item.id === props.id) {
-            return {
-              quantity: String(Number(item.quantity) + 1),
-              id: item.id,
-              item: item.item,
-            };
-          } else {
-            return { ...item };
-          }
-        })
-      )
-    );
+    })
+      .then((response) => console.log(response))
+      .then(
+        props.setCansData((data) =>
+          data.map((item) => {
+            if (item.id === props.id) {
+              return {
+                quantity: String(Number(item.quantity) + 1),
+                id: item.id,
+                item: item.item,
+              };
+            } else {
+              return { ...item };
+            }
+          })
+        )
+      );
   };
 
   return (
-    <div className={classes["can-item"]}>
-      <h2>{props.item}</h2>
-      <div className={classes["can-buttons"]}>
-        <div className={classes["edit-buttons"]}>
-          <Button onClick={onDecrease}>-</Button>
-          <p>{props.quantity}</p>
-          <Button onClick={onIncrease}>+</Button>
+    <>
+      <div className={classes.hr}></div>
+      <div className={classes["can-item"]}>
+        <h2>{props.item}</h2>
+        <div className={classes["can-buttons"]}>
+          <div className={classes["edit-buttons"]}>
+            <Button onClick={onDecrease}>-</Button>
+            <p>{props.quantity}</p>
+            <Button onClick={onIncrease}>+</Button>
+          </div>
+          <Button onClick={onDeleteHandler} className={classes.delete}>
+            Delete
+          </Button>
         </div>
-        <Button onClick={onDeleteHandler} className={classes.delete}>
-          Delete
-        </Button>
       </div>
-    </div>
+    </>
   );
 };
 
