@@ -103,7 +103,7 @@ const NewCanForm = (props) => {
             <p className="error-text">Please input a quantity greater than 0</p>
           )}
         </div>
-        {httpError && <p>{httpError}</p>}
+        {httpError && <p className="error-text">{httpError}</p>}
         <div className="form-actions">
           <Button className="form-button">Submit</Button>
         </div>
