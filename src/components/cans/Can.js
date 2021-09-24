@@ -46,23 +46,21 @@ const Can = (props) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    })
-      .then((response) => console.log(response))
-      .then(
-        props.setCansData((data) =>
-          data.map((item) => {
-            if (item.id === props.id) {
-              return {
-                quantity: String(Number(item.quantity) + 1),
-                id: item.id,
-                item: item.item,
-              };
-            } else {
-              return { ...item };
-            }
-          })
-        )
-      );
+    }).then(
+      props.setCansData((data) =>
+        data.map((item) => {
+          if (item.id === props.id) {
+            return {
+              quantity: String(Number(item.quantity) + 1),
+              id: item.id,
+              item: item.item,
+            };
+          } else {
+            return { ...item };
+          }
+        })
+      )
+    );
   };
 
   return (
