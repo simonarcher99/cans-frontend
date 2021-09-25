@@ -7,16 +7,26 @@ const cansSlice = createSlice({
     },
     reducers: {
         addItem(state, action) {
-            // Add logic
+            const newItem = action.payload
+            state.items.push({
+                id: newItem.id,
+                quantity: newItem.quantity,
+                name: newItem.name
+            })
         },
         deleteItem(state, action) {
-            // Add logic
+            const id = action.payload;
+            state.items = state.items.filter(item => item.id !== id);
         },
         increaseItem(state, action) {
-            // add logic
+            const id = action.payload;
+            const existingItem = state.items.find(item => item.id === id);
+            existingItem.quantity++;
         },
         decreaseItem(state, action) {
-            // add logic
+            const id = action.payload;
+            const existingItem = state.items.find(item => item.id === id);
+            existingItem.quantity++;
         }
 
     },
