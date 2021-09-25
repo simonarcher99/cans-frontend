@@ -105,7 +105,15 @@ const NewCanForm = (props) => {
         </div>
         {httpError && <p className="error-text">{httpError}</p>}
         <div className="form-actions">
-          <Button className="form-button">Submit</Button>
+          <Button
+            className="form-button"
+            onClick={() => {
+              itemBlurHandler();
+              quantityBlurHandler();
+            }}
+          >
+            Submit
+          </Button>
         </div>
       </form>
     </>
