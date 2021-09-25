@@ -32,7 +32,7 @@ const Cans = () => {
 
   return (
     <Card>
-      <h1 className={classes.banner}>Cupboard Inventory</h1>
+      <h1 className={classes.banner}>Can Counter</h1>
       <NewCanForm setCansData={setCansData} />
       {cansData.map((can) => (
         <Can
