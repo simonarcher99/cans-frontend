@@ -9,6 +9,7 @@ import classes from "./Can.module.css";
 
 const NewCanForm = (props) => {
   const [httpError, setHttpError] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const {
     value: item,
@@ -78,44 +79,58 @@ const NewCanForm = (props) => {
     quantityReset();
   };
 
+  const showFormHandler = () => {
+    setShowForm(true);
+  };
+
+  const hideFormHandler = () => {
+    setShowForm(false);
+  };
+
+  const form = (
+    <form onSubmit={submitFormHandler}>
+      <div className={itemClasses}>
+        <label>Item</label>
+        <input
+          value={item}
+          onBlur={itemBlurHandler}
+          onChange={itemChangeHandler}
+        />
+        {itemHasError && (
+          <p className="error-text">Please input a valid item</p>
+        )}
+      </div>
+      <div className={quantityClasses}>
+        <label>Quantity</label>
+        <input
+          value={quantity}
+          onBlur={quantityBlurHandler}
+          onChange={quantityChangeHandler}
+        />
+        {quantityHasError && (
+          <p className="error-text">Please input a quantity greater than 0</p>
+        )}
+      </div>
+      {httpError && <p className="error-text">{httpError}</p>}
+      <div className="form-actions">
+        <Button
+          className="form-button"
+          onClick={() => {
+            itemBlurHandler();
+            quantityBlurHandler();
+          }}
+        >
+          Submit
+        </Button>
+        <Button onClick={hideFormHandler}>Cancel</Button>
+      </div>
+    </form>
+  );
+
   return (
     <>
-      <form onSubmit={submitFormHandler}>
-        <div className={itemClasses}>
-          <label>Item</label>
-          <input
-            value={item}
-            onBlur={itemBlurHandler}
-            onChange={itemChangeHandler}
-          />
-          {itemHasError && (
-            <p className="error-text">Please input a valid item</p>
-          )}
-        </div>
-        <div className={quantityClasses}>
-          <label>Quantity</label>
-          <input
-            value={quantity}
-            onBlur={quantityBlurHandler}
-            onChange={quantityChangeHandler}
-          />
-          {quantityHasError && (
-            <p className="error-text">Please input a quantity greater than 0</p>
-          )}
-        </div>
-        {httpError && <p className="error-text">{httpError}</p>}
-        <div className="form-actions">
-          <Button
-            className="form-button"
-            onClick={() => {
-              itemBlurHandler();
-              quantityBlurHandler();
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
+      {!showForm && <Button onClick={showFormHandler}>Add Can</Button>}
+      {showForm && form}
     </>
   );
 };
