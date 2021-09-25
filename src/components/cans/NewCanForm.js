@@ -122,14 +122,22 @@ const NewCanForm = (props) => {
         >
           Submit
         </Button>
-        <Button onClick={hideFormHandler}>Cancel</Button>
+        <Button className="form-button" onClick={hideFormHandler}>
+          Cancel
+        </Button>
       </div>
     </form>
   );
 
   return (
     <>
-      {!showForm && <Button onClick={showFormHandler}>Add Can</Button>}
+      {!showForm && (
+        <div className="form-actions  add-button">
+          <Button className="form-button" onClick={showFormHandler}>
+            Add Can
+          </Button>
+        </div>
+      )}
       {showForm && form}
     </>
   );
