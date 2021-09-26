@@ -27,9 +27,7 @@ const Can = (props) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then(
-      dispatch(cansActions.decreaseItem(props.id))
-    );
+    }).then(dispatch(cansActions.decreaseItem(props.id)));
   };
 
   const onIncrease = () => {
@@ -41,10 +39,13 @@ const Can = (props) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then(
-      dispatch(cansActions.increaseItem(props.id))
-    );
+    }).then(dispatch(cansActions.increaseItem(props.id)));
   };
+
+  const decreaseButtonClass =
+    props.quantity === 0
+      ? classes["can-button-disabled"]
+      : classes["can-button-decrease"];
 
   return (
     <>
@@ -53,9 +54,16 @@ const Can = (props) => {
         <h2>{props.item}</h2>
         <div className={classes["can-buttons"]}>
           <div className={classes["edit-buttons"]}>
-            <Button className={props.quantity === 0 ? classes['can-button-disabled'] : classes['can-button-decrease']} onClick={onDecrease}>-</Button>
+            <Button className={decreaseButtonClass} onClick={onDecrease}>
+              -
+            </Button>
             <p>{props.quantity}</p>
-            <Button className={classes['can-button-increase']} onClick={onIncrease}>+</Button>
+            <Button
+              className={classes["can-button-increase"]}
+              onClick={onIncrease}
+            >
+              +
+            </Button>
           </div>
           <Button onClick={onDeleteHandler} className={classes.delete}>
             Delete
