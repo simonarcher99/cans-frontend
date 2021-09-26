@@ -50,7 +50,7 @@ const Can = (props) => {
         <h2>{props.item}</h2>
         <div className={classes["can-buttons"]}>
           <div className={classes["edit-buttons"]}>
-            <Button onClick={onDecrease}>-</Button>
+            <Button className={props.quantity === 0 ? `${classes['can-button-disabled']}` : ''} onClick={onDecrease}>-</Button>
             <p>{props.quantity}</p>
             <Button onClick={onIncrease}>+</Button>
           </div>

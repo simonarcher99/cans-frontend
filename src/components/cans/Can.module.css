@@ -32,3 +32,7 @@
   height: 1px;
   background-color: rgb(116, 102, 102, 0.25);
 }
+
+.can-button-disabled {
+  background: rgba(224, 6, 6, 0.25);
+}
