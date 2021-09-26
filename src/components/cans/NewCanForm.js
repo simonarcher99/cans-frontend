@@ -6,15 +6,15 @@ import { BACKEND_URL } from "../../utilities/constants";
 
 import "./NewCanForm.css";
 import classes from "./Can.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cansActions } from "../../store/cans-slice";
+import { uiActions } from "../../store/ui-slice";
 
 const NewCanForm = (props) => {
   const dispatch = useDispatch();
-
+  const showForm = useSelector(state => state.ui.formIsVisible)
 
   const [httpError, setHttpError] = useState(null);
-  const [showForm, setShowForm] = useState(false);
 
   const {
     value: item,
@@ -84,12 +84,8 @@ const NewCanForm = (props) => {
     quantityReset();
   };
 
-  const showFormHandler = () => {
-    setShowForm(true);
-  };
-
-  const hideFormHandler = () => {
-    setShowForm(false);
+  const toggleFormHandler = () => {
+    dispatch(uiActions.toggle());
   };
 
   const form = (
@@ -127,7 +123,7 @@ const NewCanForm = (props) => {
         >
           Submit
         </Button>
-        <Button type="button" className="form-button" onClick={hideFormHandler}>
+        <Button type="button" className="form-button" onClick={toggleFormHandler}>
           Cancel
         </Button>
       </div>
@@ -138,7 +134,7 @@ const NewCanForm = (props) => {
     <>
       {!showForm && (
         <div className="form-actions  add-button">
-          <Button className="form-button" onClick={showFormHandler}>
+          <Button className="form-button" onClick={toggleFormHandler}>
             Add Can
           </Button>
         </div>
