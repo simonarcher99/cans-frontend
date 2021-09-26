@@ -71,7 +71,7 @@ const NewCanForm = (props) => {
           });
         })
         .then((data) => data.data)
-        .then((data) => dispatch(cansActions.addItem(data)))
+        .then((data) => dispatch(cansActions.addItem(data))).then((data) => setHttpError(null))
         .catch((error) => {
           setHttpError(error.message);
           console.log(error.message);
