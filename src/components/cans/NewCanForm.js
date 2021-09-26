@@ -6,8 +6,13 @@ import { BACKEND_URL } from "../../utilities/constants";
 
 import "./NewCanForm.css";
 import classes from "./Can.module.css";
+import { useDispatch } from "react-redux";
+import { cansActions } from "../../store/cans-slice";
 
 const NewCanForm = (props) => {
+  const dispatch = useDispatch();
+
+
   const [httpError, setHttpError] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
@@ -66,7 +71,7 @@ const NewCanForm = (props) => {
           });
         })
         .then((data) => data.data)
-        .then((data) => props.setCansData((state) => [...state, data]))
+        .then((data) => dispatch(cansActions.addItem(data)))
         .catch((error) => {
           setHttpError(error.message);
           console.log(error.message);
@@ -122,7 +127,7 @@ const NewCanForm = (props) => {
         >
           Submit
         </Button>
-        <Button className="form-button" onClick={hideFormHandler}>
+        <Button type="button" className="form-button" onClick={hideFormHandler}>
           Cancel
         </Button>
       </div>
