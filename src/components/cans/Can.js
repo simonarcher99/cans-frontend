@@ -16,6 +16,9 @@ const Can = (props) => {
   };
 
   const onDecrease = () => {
+    if (props.quantity < 1) {
+      return;
+    }
     const data = { quantity: String(Number(props.quantity - 1)) };
     fetch(BACKEND_URL + `api/cans/${props.id}`, {
       method: "PATCH",
@@ -50,9 +53,9 @@ const Can = (props) => {
         <h2>{props.item}</h2>
         <div className={classes["can-buttons"]}>
           <div className={classes["edit-buttons"]}>
-            <Button className={props.quantity === 0 ? `${classes['can-button-disabled']}` : ''} onClick={onDecrease}>-</Button>
+            <Button className={props.quantity === 0 ? classes['can-button-disabled'] : classes['can-button-decrease']} onClick={onDecrease}>-</Button>
             <p>{props.quantity}</p>
-            <Button onClick={onIncrease}>+</Button>
+            <Button className={classes['can-button-increase']} onClick={onIncrease}>+</Button>
           </div>
           <Button onClick={onDeleteHandler} className={classes.delete}>
             Delete
