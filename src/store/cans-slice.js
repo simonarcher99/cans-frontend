@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const cansSlice = createSlice({
     name: "cans",
-    initialState = {
+    initialState: {
         items: []
     },
     reducers: {
@@ -11,7 +11,7 @@ const cansSlice = createSlice({
             state.items.push({
                 id: newItem.id,
                 quantity: newItem.quantity,
-                name: newItem.name
+                item: newItem.item
             })
         },
         deleteItem(state, action) {
