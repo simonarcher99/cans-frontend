@@ -4,11 +4,10 @@ import classes from "./Can.module.css";
 import Button from "../UI/Button";
 import { BACKEND_URL } from "../../utilities/constants";
 import { cansActions } from "../../store/cans-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Can = (props) => {
   const dispatch = useDispatch();
-  const cansData = useSelector(state => state.cans.items)
 
   const onDeleteHandler = () => {
     fetch(BACKEND_URL + `api/cans/${props.id}`, { method: "DELETE" }).then(

@@ -86,6 +86,9 @@ const NewCanForm = (props) => {
 
   const toggleFormHandler = () => {
     dispatch(uiActions.toggle());
+    setHttpError(null);
+    itemReset();
+    quantityReset();
   };
 
   const form = (
