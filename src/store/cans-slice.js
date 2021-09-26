@@ -26,7 +26,7 @@ const cansSlice = createSlice({
         decreaseItem(state, action) {
             const id = action.payload;
             const existingItem = state.items.find(item => item.id === id);
-            existingItem.quantity++;
+            existingItem.quantity--;
         }
 
     },

@@ -26,7 +26,6 @@ const Cans = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // setCansData((state) => [...data.data]);
         data.data.forEach(item => dispatch(cansActions.addItem(item)))
         return data;
       });

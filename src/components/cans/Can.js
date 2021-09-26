@@ -3,11 +3,16 @@ import React from "react";
 import classes from "./Can.module.css";
 import Button from "../UI/Button";
 import { BACKEND_URL } from "../../utilities/constants";
+import { cansActions } from "../../store/cans-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Can = (props) => {
+  const dispatch = useDispatch();
+  const cansData = useSelector(state => state.cans.items)
+
   const onDeleteHandler = () => {
     fetch(BACKEND_URL + `api/cans/${props.id}`, { method: "DELETE" }).then(
-      props.setCansData((data) => data.filter((el) => el.id !== props.id))
+      dispatch(cansActions.deleteItem(props.id))
     );
   };
 
@@ -21,19 +26,7 @@ const Can = (props) => {
         Accept: "application/json",
       },
     }).then(
-      props.setCansData((data) =>
-        data.map((item) => {
-          if (item.id === props.id) {
-            return {
-              quantity: String(Number(item.quantity) - 1),
-              id: item.id,
-              item: item.item,
-            };
-          } else {
-            return { ...item };
-          }
-        })
-      )
+      dispatch(cansActions.decreaseItem(props.id))
     );
   };
 
@@ -47,19 +40,7 @@ const Can = (props) => {
         Accept: "application/json",
       },
     }).then(
-      props.setCansData((data) =>
-        data.map((item) => {
-          if (item.id === props.id) {
-            return {
-              quantity: String(Number(item.quantity) + 1),
-              id: item.id,
-              item: item.item,
-            };
-          } else {
-            return { ...item };
-          }
-        })
-      )
+      dispatch(cansActions.increaseItem(props.id))
     );
   };
 
