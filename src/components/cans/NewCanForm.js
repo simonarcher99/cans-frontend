@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
@@ -9,12 +9,12 @@ import classes from "./Can.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cansActions } from "../../store/cans-slice";
 import { uiActions } from "../../store/ui-slice";
+import { errorActions } from "../../store/error-slice";
 
 const NewCanForm = (props) => {
   const dispatch = useDispatch();
   const showForm = useSelector((state) => state.ui.formIsVisible);
-
-  const [httpError, setHttpError] = useState(null);
+  const httpError = useSelector((state) => state.error.httpError);
 
   const {
     value: item,
@@ -72,10 +72,10 @@ const NewCanForm = (props) => {
         })
         .then((data) => data.data)
         .then((data) => dispatch(cansActions.addItem(data)))
-        .then(() => setHttpError(null))
+        .then(() => dispatch(errorActions.clearHttpErorr()))
         .then(() => dispatch(uiActions.toggle()))
         .catch((error) => {
-          setHttpError(error.message);
+          dispatch(errorActions.addHttpError({ message: error.message }));
           console.log(error.message);
         });
     };
@@ -88,7 +88,7 @@ const NewCanForm = (props) => {
 
   const toggleFormHandler = () => {
     dispatch(uiActions.toggle());
-    setHttpError(null);
+    dispatch(errorActions.clearHttpError());
     itemReset();
     quantityReset();
   };
