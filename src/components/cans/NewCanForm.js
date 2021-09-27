@@ -12,7 +12,7 @@ import { uiActions } from "../../store/ui-slice";
 
 const NewCanForm = (props) => {
   const dispatch = useDispatch();
-  const showForm = useSelector(state => state.ui.formIsVisible)
+  const showForm = useSelector((state) => state.ui.formIsVisible);
 
   const [httpError, setHttpError] = useState(null);
 
@@ -71,7 +71,9 @@ const NewCanForm = (props) => {
           });
         })
         .then((data) => data.data)
-        .then((data) => dispatch(cansActions.addItem(data))).then((data) => setHttpError(null))
+        .then((data) => dispatch(cansActions.addItem(data)))
+        .then(() => setHttpError(null))
+        .then(() => dispatch(uiActions.toggle()))
         .catch((error) => {
           setHttpError(error.message);
           console.log(error.message);
@@ -126,7 +128,11 @@ const NewCanForm = (props) => {
         >
           Submit
         </Button>
-        <Button type="button" className="form-button" onClick={toggleFormHandler}>
+        <Button
+          type="button"
+          className="form-button"
+          onClick={toggleFormHandler}
+        >
           Cancel
         </Button>
       </div>
