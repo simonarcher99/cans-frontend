@@ -1,9 +1,12 @@
-const SearchBar = () => {
+const SearchBar = (props) => {
+  const searchHandler = (event) => {
+    props.onSearchHandler(event.target.value);
+  };
+
   return (
     <section>
       <form>
-        <input placeholder="Search"></input>
-        <button></button>
+        <input onChange={searchHandler} placeholder="Search"></input>
       </form>
     </section>
   );
