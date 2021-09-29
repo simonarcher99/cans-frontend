@@ -11,12 +11,9 @@ import { BACKEND_URL } from "../../utilities/constants.js";
 import SearchBar from "../UI/SearchBar";
 
 const Cans = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const cansData = useSelector((state) => state.cans.items);
   const dispatch = useDispatch();
-  const [filteredData, setFilteredData] = useState(cansData);
-
-  // const [cansData, setCansData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getBackendData = (BACKEND_URL) => {
     fetch(BACKEND_URL + "api/cans", {
@@ -35,24 +32,29 @@ const Cans = () => {
 
   useEffect(() => {
     getBackendData(BACKEND_URL);
-    setFilteredData(cansData);
   }, []);
 
-  const onSearchHandler = (searchTerm) => {
-    if (searchTerm) {
-      let filteredCans = cansData.filter((can) => {
-        can.item.includes(searchTerm);
-      });
-      setFilteredData(filteredCans);
-    }
+  const onSearchHandler = (value) => {
+    setSearchTerm(value);
+    console.log(searchTerm);
   };
+
+  let data;
+
+  if (searchTerm) {
+    data = cansData.filter((can) =>
+      can.item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  } else {
+    data = cansData;
+  }
 
   return (
     <Card>
       <h1 className={classes.banner}>Can Counter</h1>
       <NewCanForm />
       <SearchBar onSearchHandler={onSearchHandler} />
-      {filteredData.map((can) => (
+      {data.map((can) => (
         <Can item={can.item} quantity={can.quantity} key={can.id} id={can.id} />
       ))}
     </Card>
