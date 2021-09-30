@@ -1,3 +1,5 @@
+import classes from "./SearchBar.module.css";
+
 const SearchBar = (props) => {
   const searchHandler = (event) => {
     props.onSearchHandler(event.target.value);
@@ -6,7 +8,11 @@ const SearchBar = (props) => {
   return (
     <section>
       <form>
-        <input onChange={searchHandler} placeholder="Search"></input>
+        <input
+          className={classes["search-bar"]}
+          onChange={searchHandler}
+          placeholder="Search"
+        ></input>
       </form>
     </section>
   );

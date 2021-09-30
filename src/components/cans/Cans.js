@@ -36,7 +36,6 @@ const Cans = () => {
 
   const onSearchHandler = (value) => {
     setSearchTerm(value);
-    console.log(searchTerm);
   };
 
   let data;
