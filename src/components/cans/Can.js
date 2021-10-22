@@ -10,7 +10,7 @@ const Can = (props) => {
   const dispatch = useDispatch();
 
   const onDeleteHandler = () => {
-    fetch(BACKEND_URL + `api/cans/${props.id}`, { method: "DELETE" }).then(
+    fetch(BACKEND_URL + `api/can/${props.id}`, { method: "DELETE" }).then(
       dispatch(cansActions.deleteItem(props.id))
     );
   };
@@ -20,7 +20,7 @@ const Can = (props) => {
       return;
     }
     const data = { quantity: String(Number(props.quantity - 1)) };
-    fetch(BACKEND_URL + `api/cans/${props.id}`, {
+    fetch(BACKEND_URL + `api/can/${props.id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {
@@ -32,7 +32,7 @@ const Can = (props) => {
 
   const onIncrease = () => {
     const data = { quantity: String(Number(props.quantity) + 1) };
-    fetch(BACKEND_URL + `api/cans/${props.id}`, {
+    fetch(BACKEND_URL + `api/can/${props.id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {

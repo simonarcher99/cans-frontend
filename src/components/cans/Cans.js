@@ -16,7 +16,7 @@ const Cans = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const getBackendData = (BACKEND_URL) => {
-    fetch(BACKEND_URL + "api/cans", {
+    fetch(BACKEND_URL + "api/can/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

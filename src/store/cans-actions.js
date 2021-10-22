@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../utilities/constants";
 export const fetchCanData = () => {
   return async (dispatch) => {
     const getBackendData = (BACKEND_URL) => {
-      const response = await fetch(BACKEND_URL + "api/cans", {
+      const response = await fetch(BACKEND_URL + "api/can/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

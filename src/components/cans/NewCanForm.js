@@ -54,7 +54,7 @@ const NewCanForm = (props) => {
     const formData = { item: item, quantity: quantity };
 
     const handlePostData = (formData) => {
-      fetch(BACKEND_URL + "api/cans", {
+      fetch(BACKEND_URL + "api/can/", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
