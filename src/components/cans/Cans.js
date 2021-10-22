@@ -25,7 +25,8 @@ const Cans = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.data.forEach((item) => dispatch(cansActions.addItem(item)));
+        console.log("data:", data);
+        data.forEach((item) => dispatch(cansActions.addItem(item)));
         return data;
       });
   };
@@ -54,7 +55,12 @@ const Cans = () => {
       <NewCanForm />
       <SearchBar onSearchHandler={onSearchHandler} />
       {data.map((can) => (
-        <Can item={can.item} quantity={can.quantity} key={can.id} id={can.id} />
+        <Can
+          item={can.title}
+          quantity={can.quantity}
+          key={can.id}
+          id={can.id}
+        />
       ))}
     </Card>
   );
