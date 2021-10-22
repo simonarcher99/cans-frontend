@@ -51,7 +51,7 @@ const NewCanForm = (props) => {
     if (!formIsValid) {
       return;
     }
-    const formData = { item: item, quantity: quantity };
+    const formData = { title: item, quantity: quantity };
 
     const handlePostData = (formData) => {
       fetch(BACKEND_URL + "api/can/", {
@@ -70,9 +70,11 @@ const NewCanForm = (props) => {
             throw new Error(data.message);
           });
         })
-        .then((data) => data.data)
-        .then((data) => dispatch(cansActions.addItem(data)))
-        .then(() => dispatch(errorActions.clearHttpErorr()))
+        .then((data) => {
+          console.log(data);
+          dispatch(cansActions.addItem(data));
+        })
+        .then(() => dispatch(errorActions.clearHttpError()))
         .then(() => dispatch(uiActions.toggle()))
         .catch((error) => {
           dispatch(errorActions.addHttpError({ message: error.message }));
