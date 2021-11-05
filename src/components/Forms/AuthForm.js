@@ -50,6 +50,7 @@ const AuthForm = () => {
   return (
     <Card>
       <form className={classes.form} onSubmit={onSubmitHandler}>
+        <h1>Login</h1>
         <div className={classes["form-control"]}>
           <label>Email</label>
           <input
