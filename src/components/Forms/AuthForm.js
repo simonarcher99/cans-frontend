@@ -1,17 +1,18 @@
 import React from "react";
 import { authActions } from "../../store/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 import Button from "../UI/Button";
 import { TOKEN_URL } from "../../utilities/constants";
+import Card from "../UI/Card";
+import classes from "../UI/form.module.css";
 
 const AuthForm = () => {
   const dispatch = useDispatch();
 
   const {
     value: email,
-    isValid: emailIsValid,
-    hasError: emailHasError,
     inputBlurHandler: emailBlurHandler,
     valueChangeHandler: emailChangeHandler,
     reset: emailReset,
@@ -19,8 +20,6 @@ const AuthForm = () => {
 
   const {
     value: password,
-    isValid: passwordIsValid,
-    hasError: passwordHasError,
     inputBlurHandler: passwordBlurHandler,
     valueChangeHandler: passwordChangeHandler,
     reset: passwordReset,
@@ -49,28 +48,44 @@ const AuthForm = () => {
       });
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <div>
-        <label>Email</label>
-        <input
-          value={email}
-          onBlur={emailBlurHandler}
-          onChange={emailChangeHandler}
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onBlur={passwordBlurHandler}
-          onChange={passwordChangeHandler}
-        />
-      </div>
-      <button type="submit" onClick={onSubmitHandler}>
-        Login
-      </button>
-    </form>
+    <Card>
+      <form className={classes.form} onSubmit={onSubmitHandler}>
+        <div className={classes["form-control"]}>
+          <label>Email</label>
+          <input
+            value={email}
+            onBlur={emailBlurHandler}
+            onChange={emailChangeHandler}
+          />
+        </div>
+        <div className={classes["form-control"]}>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onBlur={passwordBlurHandler}
+            onChange={passwordChangeHandler}
+          />
+        </div>
+        <div className={classes["form-actions"]}>
+          <Button
+            className={classes["form-button"]}
+            type="submit"
+            onClick={onSubmitHandler}
+          >
+            Login
+          </Button>
+          <div>
+            <p>
+              Don't have an account?{" "}
+              <Link className={classes.link} to="/signup">
+                Sign-up
+              </Link>
+            </p>
+          </div>
+        </div>
+      </form>
+    </Card>
   );
 };
 

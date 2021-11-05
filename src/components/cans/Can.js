@@ -4,15 +4,17 @@ import classes from "./Can.module.css";
 import Button from "../UI/Button";
 import { BACKEND_URL } from "../../utilities/constants";
 import { cansActions } from "../../store/cans-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Can = (props) => {
   const dispatch = useDispatch();
+  const authToken = useSelector((state) => state.auth.token);
 
   const onDeleteHandler = () => {
-    fetch(BACKEND_URL + `api/can/${props.id}`, { method: "DELETE" }).then(
-      dispatch(cansActions.deleteItem(props.id))
-    );
+    fetch(BACKEND_URL + `api/can/${props.id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Token ${authToken}` },
+    }).then(dispatch(cansActions.deleteItem(props.id)));
   };
 
   const onDecrease = () => {
@@ -26,6 +28,7 @@ const Can = (props) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Token ${authToken}`,
       },
     }).then(dispatch(cansActions.decreaseItem(props.id)));
   };
@@ -38,6 +41,7 @@ const Can = (props) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Token ${authToken}`,
       },
     }).then(dispatch(cansActions.increaseItem(props.id)));
   };

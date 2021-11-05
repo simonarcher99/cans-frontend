@@ -5,7 +5,6 @@ import useInput from "../../hooks/use-input";
 import { BACKEND_URL } from "../../utilities/constants";
 
 import "./NewCanForm.css";
-import classes from "./Can.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cansActions } from "../../store/cans-slice";
 import { uiActions } from "../../store/ui-slice";
@@ -15,6 +14,7 @@ const NewCanForm = (props) => {
   const dispatch = useDispatch();
   const showForm = useSelector((state) => state.ui.formIsVisible);
   const httpError = useSelector((state) => state.error.httpError);
+  const authToken = useSelector((state) => state.auth.token);
 
   const {
     value: item,
@@ -60,6 +60,7 @@ const NewCanForm = (props) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Token ${authToken}`,
         },
       })
         .then((response) => {

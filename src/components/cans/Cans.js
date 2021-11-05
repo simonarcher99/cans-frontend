@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Card from "../UI/Card";
 import classes from "./Cans.module.css";
@@ -12,28 +12,33 @@ import SearchBar from "../UI/SearchBar";
 
 const Cans = () => {
   const cansData = useSelector((state) => state.cans.items);
+  const authToken = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const getBackendData = (BACKEND_URL) => {
-    fetch(BACKEND_URL + "api/can/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data:", data);
-        data.forEach((item) => dispatch(cansActions.addItem(item)));
-        return data;
-      });
-  };
+  const getBackendData = useCallback(
+    (BACKEND_URL) => {
+      fetch(BACKEND_URL + "api/can/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Token ${authToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("data:", data);
+          data.forEach((item) => dispatch(cansActions.addItem(item)));
+          return data;
+        });
+    },
+    [dispatch, authToken]
+  );
 
   useEffect(() => {
     getBackendData(BACKEND_URL);
-  }, []);
+  }, [getBackendData]);
 
   const onSearchHandler = (value) => {
     setSearchTerm(value);
