@@ -79,7 +79,7 @@ const NewCanForm = (props) => {
         .then(() => dispatch(uiActions.toggle()))
         .catch((error) => {
           dispatch(errorActions.addHttpError({ message: error.message }));
-          console.log(error.message);
+          console.log(error);
         });
     };
 

@@ -1,14 +1,16 @@
 import React from "react";
 import { authActions } from "../../store/auth-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 import Button from "../UI/Button";
 import { TOKEN_URL } from "../../utilities/constants";
 import Card from "../UI/Card";
 import classes from "../UI/form.module.css";
+import { errorActions } from "../../store/error-slice";
 
 const AuthForm = () => {
+  const httpError = useSelector((state) => state.error.httpError);
   const dispatch = useDispatch();
 
   const {
@@ -37,13 +39,29 @@ const AuthForm = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        const json = res.json();
+        if (res.ok) {
+          return json;
+        }
+        return json.then((data) => {
+          console.log(res.status);
+          console.log(data);
+          throw new Error(data.non_field_errors);
+        });
+      })
       .then((data) => {
         console.log(data.token);
         dispatch(authActions.login({ token: data.token }));
       })
       .then((data) => {
         emailReset();
+        passwordReset();
+        dispatch(errorActions.clearHttpError());
+      })
+      .catch((error) => {
+        dispatch(errorActions.addHttpError({ message: error.message }));
+        console.log(error);
         passwordReset();
       });
   };
@@ -68,6 +86,7 @@ const AuthForm = () => {
             onChange={passwordChangeHandler}
           />
         </div>
+        {httpError && <p className={classes["error-text"]}>{httpError}</p>}
         <div className={classes["form-actions"]}>
           <Button
             className={classes["form-button"]}
