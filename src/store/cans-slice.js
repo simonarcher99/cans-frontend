@@ -28,6 +28,9 @@ const cansSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === id);
       existingItem.quantity--;
     },
+    clearCansState(state, action) {
+      state.items = [];
+    },
   },
 });
 

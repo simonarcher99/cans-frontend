@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { cansActions } from "./cans-slice";
 
 const authSlice = createSlice({
   name: "auth",

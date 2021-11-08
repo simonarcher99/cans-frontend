@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import classes from "./Header.module.css";
 import Button from "./Button";
 import { authActions } from "../../store/auth-slice";
+import { cansActions } from "../../store/cans-slice";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Header = (props) => {
 
   const logoutHandler = () => {
     dispatch(authActions.logout());
+    dispatch(cansActions.clearCansState());
   };
 
   return (
