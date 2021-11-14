@@ -54,6 +54,7 @@ const NewCanForm = (props) => {
     const formData = { title: item, quantity: quantity };
 
     const handlePostData = (formData) => {
+      console.log("posting data");
       fetch(BACKEND_URL + "api/can/", {
         method: "POST",
         body: JSON.stringify(formData),
@@ -65,6 +66,7 @@ const NewCanForm = (props) => {
       })
         .then((response) => {
           if (response.ok) {
+            console.log("here");
             return response.json();
           }
           return response.json().then((data) => {

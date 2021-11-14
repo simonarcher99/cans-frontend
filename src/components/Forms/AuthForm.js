@@ -45,8 +45,6 @@ const AuthForm = () => {
           return json;
         }
         return json.then((data) => {
-          console.log(res.status);
-          console.log(data);
           throw new Error(data.non_field_errors);
         });
       })
